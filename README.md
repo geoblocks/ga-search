@@ -9,8 +9,9 @@ npm install @geoblocks/ga-search
 ```
 
 ## Example Usage
+
 ```html
-<ga-search>
+<ga-search limit="42">
   <input placeholder="Search...">
   <ul></ul>
 </ga-search>
@@ -37,7 +38,7 @@ The component has to have an `input` and `ul` as children element. The query tex
 
 ## Running the demo
 
-```bash
+```sh
 npm i
 npm run start
 ```
