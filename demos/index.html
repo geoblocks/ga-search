@@ -17,7 +17,7 @@
     }
 
     ga-search ul li {
-      padding: 4px;
+      padding: 2px;
     }
   </style>
 </head>
@@ -27,6 +27,13 @@
     <input type="search" placeholder="Search">
     <ul></ul>
   </ga-search>
+
+  <script>
+    const element = document.querySelector('ga-search');
+    element.addEventListener('select', event => {
+      console.log(event.detail.result);
+    })
+  </script>
 </body>
 
 </html>

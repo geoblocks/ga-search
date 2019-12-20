@@ -5,7 +5,7 @@
   "module": "ga-search.js",
   "license": "BSD-3-Clause",
   "scripts": {
-    "start": "es-dev-server --watch --node-resolve --open --root-dir demos/"
+    "start": "es-dev-server --watch --node-resolve --open /demos/"
   },
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.0.3",
