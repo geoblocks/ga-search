@@ -2,7 +2,7 @@ import {LitElement, html} from 'lit-element';
 import Autocomplete from '@trevoreyre/autocomplete-js';
 
 const searchUrl = 'https://api3.geo.admin.ch/rest/services/api/SearchServer?lang={lang}&limit={limit}&searchText={input}';
-const locationSearchUrl = searchUrl + '&geometryFormat=geojson&sr={sr}&type=locations';
+const locationSearchUrl = searchUrl + '&origins={origins}&geometryFormat=geojson&sr={sr}&type=locations';
 // const layersSearchUrl = searchUrl + '&type=layers';
 // const featuresSearchUrl = searchUrl + '&sr={sr}&type=featuresearch&features={layers}';
 
@@ -10,6 +10,7 @@ class GeoadminSearch extends LitElement {
   static get properties() {
     return {
       types: {type: String},
+      locationOrigins: {type: String},
       sr: {type: String},
       lang: {type: String},
       limit: {type: Number}
@@ -21,6 +22,7 @@ class GeoadminSearch extends LitElement {
 
     this.sr = '4326';
     this.types = 'location';
+    this.locationOrigins = 'zipcode,gg25';
     this.limit = 15;
   }
 
@@ -32,6 +34,7 @@ class GeoadminSearch extends LitElement {
           if (input.length >= 1) {
             const locationUrl = locationSearchUrl
               .replace('{lang}', this.lang || document.documentElement.lang)
+              .replace('{origins}', this.locationOrigins)
               .replace('{sr}', this.sr)
               .replace('{limit}', this.limit)
               .replace('{input}', input);
