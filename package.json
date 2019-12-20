@@ -1,0 +1,17 @@
+{
+  "name": "@geoblocks/ga-search",
+  "version": "0.0.0",
+  "main": "ga-search.js",
+  "module": "ga-search.js",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "start": "es-dev-server --watch --node-resolve --open --root-dir demos/"
+  },
+  "dependencies": {
+    "@trevoreyre/autocomplete-js": "^2.0.3",
+    "lit-element": "^2.2.1"
+  },
+  "devDependencies": {
+    "es-dev-server": "^1.32.0"
+  }
+}
