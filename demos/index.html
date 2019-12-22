@@ -13,6 +13,7 @@
 
     main {
       display: flex;
+      justify-content: space-around;
     }
 
     ga-search {
@@ -31,13 +32,26 @@
       <input type="search" class="autocomplete-input" placeholder="Search location">
       <ul class="autocomplete-result-list"></ul>
     </ga-search>
+
+    <ga-search types="layer" limit="5">
+      <input type="search" class="autocomplete-input" placeholder="Search layer">
+      <ul class="autocomplete-result-list"></ul>
+    </ga-search>
+
+    <ga-search types="location layer" limit="5">
+      <input type="search" class="autocomplete-input" placeholder="Search location and layer">
+      <ul class="autocomplete-result-list"></ul>
+    </ga-search>
   </main>
 
   <script>
-    const element = document.querySelector('ga-search');
-    element.addEventListener('submit', event => {
-      console.log(event.detail.result);
-    })
+    const elements = document.querySelectorAll('ga-search');
+    elements.forEach(element => {
+      element.addEventListener('submit', event => {
+        console.log(event.target, event.detail.result);
+      });
+    });
+
   </script>
 </body>
 

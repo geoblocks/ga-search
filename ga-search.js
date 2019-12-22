@@ -1,33 +1,35 @@
 import {LitElement, html} from 'lit-element';
 import Autocomplete from '@trevoreyre/autocomplete-js';
 
-const searchUrl = 'https://api3.geo.admin.ch/rest/services/api/SearchServer?lang={lang}&limit={limit}&searchText={input}';
-const locationSearchUrl = searchUrl + '&origins={origins}&geometryFormat=geojson&sr={sr}&type=locations';
-// const layersSearchUrl = searchUrl + '&type=layers';
-// const featuresSearchUrl = searchUrl + '&sr={sr}&type=featuresearch&features={layers}';
+const baseUrl = 'http://mf-chsdi3.int.bgdi.ch/fix_3351/rest/services/api/SearchServer';
+const searchUrl = baseUrl + '?geometryFormat=geojson&sr={sr}&lang={lang}&limit={limit}&searchText={input}';
+const locationSearchUrl = searchUrl + '&type=locations&origins={origins}';
+const layerSearchUrl = searchUrl + '&type=layers';
+const featureSearchUrl = searchUrl + '&type=featuresearch&features={layers}';
 
 class GeoadminSearch extends LitElement {
   static get properties() {
     return {
-      debounceTime: {type: Number},
-      types: {type: String},
       minlength: {type: Number},
-      locationOrigins: {type: String},
-      sr: {type: String},
+      limit: {type: Number},
+      debounceTime: {type: Number},
       lang: {type: String},
-      limit: {type: Number}
+      types: {type: String},
+      sr: {type: String},
+      locationOrigins: {type: String},
+      featureLayers: {type: String}
     };
   }
 
   constructor() {
     super();
 
-    this.debounceTime = 200;
     this.minlength = 1;
-    this.sr = '4326';
-    this.types = 'location';
-    this.locationOrigins = 'zipcode,gg25';
     this.limit = 15;
+    this.debounceTime = 200;
+    this.types = 'location';
+    this.sr = '4326';
+    this.locationOrigins = 'zipcode,gg25';
   }
 
   slotReady() {
@@ -36,17 +38,35 @@ class GeoadminSearch extends LitElement {
 
       search: input => {
         return new Promise(resolve => {
+          const urls = [];
           if (input.length >= this.minlength) {
-            const locationUrl = locationSearchUrl
-              .replace('{lang}', this.lang || document.documentElement.lang)
-              .replace('{origins}', this.locationOrigins)
-              .replace('{sr}', this.sr)
-              .replace('{limit}', this.limit)
-              .replace('{input}', input);
-            fetch(locationUrl)
-              .then(response => response.json())
-              .then(featureCollection => featureCollection.features)
-              .then(features => resolve(features));
+            if (this.types.includes('location')) {
+              const locationUrl = locationSearchUrl.replace('{origins}', this.locationOrigins)
+              urls.push(locationUrl);
+            }
+            if (this.types.includes('layer')) {
+              urls.push(layerSearchUrl);
+            }
+            if (this.types.includes('feature') && this.featureLayers) {
+              const featureUrl = featureSearchUrl.replace('{layers}', this.featureLayers)
+              urls.push(featureUrl);
+            }
+            const promises = urls.map(url => {
+              url = url
+                .replace('{lang}', this.lang || document.documentElement.lang)
+                .replace('{sr}', this.sr)
+                .replace('{limit}', this.limit)
+                .replace('{input}', input);
+              return fetch(url)
+                .then(response => response.json())
+                .then(featureCollection => featureCollection.features);
+            });
+            Promise.all(promises)
+              .then(results => {
+                results = results.filter(result => result.length > 0);
+                // FIXME: add header between type
+                resolve(results.flat());
+              });
           } else {
             resolve([]);
           }
