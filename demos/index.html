@@ -4,20 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.4.0/webcomponents-loader.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css">
   <script src="../ga-search.js" type="module"></script>
   <style>
-    ga-search input {
-      width: 400px;
+    html, body {
+      height: 100%;
     }
 
-    ga-search ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    main {
+      display: flex;
     }
 
-    ga-search ul li {
-      padding: 2px;
+    ga-search {
+      width: 600px;
     }
 
     ga-search ul li .highlight {
@@ -27,10 +26,12 @@
 </head>
 
 <body>
-  <ga-search limit="10">
-    <input type="search" placeholder="Search">
-    <ul></ul>
-  </ga-search>
+  <main>
+    <ga-search limit="10">
+      <input type="search" class="autocomplete-input" placeholder="Search location">
+      <ul class="autocomplete-result-list"></ul>
+    </ga-search>
+  </main>
 
   <script>
     const element = document.querySelector('ga-search');

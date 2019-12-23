@@ -54,6 +54,7 @@ class GeoadminSearch extends LitElement {
         // FIXME: do not match html tags (<i> or <b>)
         const pattern = new RegExp(this.autocomplete.input.value, 'ig');
         const label = result.properties.label;
+        props['data-result-origin'] = result.properties.origin;
         return `
           <li ${props}>
             ${label.replace(pattern, match => `<span class='highlight'>${match}</span>`)}
