@@ -10,6 +10,7 @@ class GeoadminSearch extends LitElement {
   static get properties() {
     return {
       types: {type: String},
+      minlength: {type: Number},
       locationOrigins: {type: String},
       sr: {type: String},
       lang: {type: String},
@@ -20,6 +21,7 @@ class GeoadminSearch extends LitElement {
   constructor() {
     super();
 
+    this.minlength = 1;
     this.sr = '4326';
     this.types = 'location';
     this.locationOrigins = 'zipcode,gg25';
@@ -31,7 +33,7 @@ class GeoadminSearch extends LitElement {
 
       search: input => {
         return new Promise(resolve => {
-          if (input.length >= 1) {
+          if (input.length >= this.minlength) {
             const locationUrl = locationSearchUrl
               .replace('{lang}', this.lang || document.documentElement.lang)
               .replace('{origins}', this.locationOrigins)
