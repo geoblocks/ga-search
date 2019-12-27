@@ -36,7 +36,7 @@ The component has to have an `input` and `ul` as children element. The query tex
 
 | Name     | Detail              | Description
 | -------- | ------------------- | -----------
-| `select` | `{result: Feature}` | Fired when a search result is selected.
+| `submit` | `{result: Feature}` | Fired when a search result is selected.
 
 ## Running the demo
 
