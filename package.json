@@ -8,7 +8,7 @@
     "start": "es-dev-server --watch --node-resolve --open /demos/"
   },
   "dependencies": {
-    "@trevoreyre/autocomplete-js": "^2.0.3",
+    "@trevoreyre/autocomplete-js": "^2.0.4",
     "lit-element": "^2.2.1"
   },
   "devDependencies": {
