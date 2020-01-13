@@ -9,6 +9,7 @@ const locationSearchUrl = searchUrl + '&origins={origins}&geometryFormat=geojson
 class GeoadminSearch extends LitElement {
   static get properties() {
     return {
+      debounceTime: {type: Number},
       types: {type: String},
       minlength: {type: Number},
       locationOrigins: {type: String},
@@ -21,6 +22,7 @@ class GeoadminSearch extends LitElement {
   constructor() {
     super();
 
+    this.debounceTime = 200;
     this.minlength = 1;
     this.sr = '4326';
     this.types = 'location';
@@ -30,6 +32,7 @@ class GeoadminSearch extends LitElement {
 
   slotReady() {
     this.autocomplete = new Autocomplete(this, {
+      debounceTime: this.debounceTime,
 
       search: input => {
         return new Promise(resolve => {
