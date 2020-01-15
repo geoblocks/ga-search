@@ -17,7 +17,8 @@ class GeoadminSearch extends LitElement {
       types: {type: String},
       sr: {type: String},
       locationOrigins: {type: String},
-      featureLayers: {type: String}
+      featureLayers: {type: String},
+      filterResults: {type: Function}
     };
   }
 
@@ -30,6 +31,7 @@ class GeoadminSearch extends LitElement {
     this.types = 'location';
     this.sr = '4326';
     this.locationOrigins = 'zipcode,gg25';
+    this.filterResults = undefined;
   }
 
   slotReady() {
@@ -63,9 +65,12 @@ class GeoadminSearch extends LitElement {
             });
             Promise.all(promises)
               .then(results => {
-                results = results.filter(result => result.length > 0);
+                results = results.flat();
+                if (this.filterResults) {
+                  results = results.filter(this.filterResults);
+                }
                 // FIXME: add header between type
-                resolve(results.flat());
+                resolve(results);
               });
           } else {
             resolve([]);

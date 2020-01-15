@@ -33,8 +33,8 @@
       <ul class="autocomplete-result-list"></ul>
     </ga-search>
 
-    <ga-search types="layer" limit="5">
-      <input type="search" class="autocomplete-input" placeholder="Search layer">
+    <ga-search id="geol-layers" types="layer">
+      <input type="search" class="autocomplete-input" placeholder="Search geology layer">
       <ul class="autocomplete-result-list"></ul>
     </ga-search>
 
@@ -45,6 +45,9 @@
   </main>
 
   <script>
+    const wmtsLayers = document.querySelector('#geol-layers');
+    wmtsLayers.filterResults = result => result.properties.topics.includes('geol');
+
     const elements = document.querySelectorAll('ga-search');
     elements.forEach(element => {
       element.addEventListener('submit', event => {
