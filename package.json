@@ -13,6 +13,6 @@
     "lit-element": "^2.2.1"
   },
   "devDependencies": {
-    "es-dev-server": "^1.38.1"
+    "es-dev-server": "^1.38.2"
   }
 }
