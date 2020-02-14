@@ -38,15 +38,18 @@
       <ul class="autocomplete-result-list"></ul>
     </ga-search>
 
-    <ga-search types="location layer" limit="5">
+    <ga-search id="location-layer" types="location layer" limit="5">
       <input type="search" class="autocomplete-input" placeholder="Search location and layer">
       <ul class="autocomplete-result-list"></ul>
     </ga-search>
   </main>
 
   <script>
-    const wmtsLayers = document.querySelector('#geol-layers');
-    wmtsLayers.filterResults = result => result.properties.topics.includes('geol');
+    const geolLayers = document.querySelector('#geol-layers');
+    geolLayers.filterResults = result => result.properties.topics.includes('geol');
+
+    const locationLayer = document.querySelector('#location-layer');
+    locationLayer.renderResult = (result, label) => `${result.properties.origin === 'layer' ? '👀' : '🦶'} ${label}`;
 
     const elements = document.querySelectorAll('ga-search');
     elements.forEach(element => {

@@ -18,7 +18,8 @@ class GeoadminSearch extends LitElement {
       sr: {type: String},
       locationOrigins: {type: String},
       featureLayers: {type: String},
-      filterResults: {type: Function}
+      filterResults: {type: Function},
+      renderResult: {type: Function}
     };
   }
 
@@ -32,6 +33,7 @@ class GeoadminSearch extends LitElement {
     this.sr = '4326';
     this.locationOrigins = 'zipcode,gg25';
     this.filterResults = undefined;
+    this.renderResult = undefined;
   }
 
   slotReady() {
@@ -79,14 +81,15 @@ class GeoadminSearch extends LitElement {
       },
 
       renderResult: (result, props) => {
-        props['data-result-origin'] = result.properties.origin;
+        const properties = result.properties
+        props['data-result-origin'] = properties.origin;
         // Match input value except if the string is inside an HTML tag.
         const pattern = `${this.autocomplete.input.value}(?![^<>]*>)`;
         const regexp = new RegExp(pattern, 'ig');
-        const label = result.properties.label;
+        const label = properties.label.replace(regexp, match => `<span class='highlight'>${match}</span>`);
         return `
           <li ${props}>
-            ${label.replace(regexp, match => `<span class='highlight'>${match}</span>`)}
+            ${this.renderResult ? this.renderResult(result, label) : label}
           </li>
         `;
       },

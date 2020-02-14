@@ -33,8 +33,8 @@ The component has to have an `input` and `ul` as children element. The query tex
 | `sr`               | `string`   | `'4326'`         | The spatial reference for output geometries. Can be `21781`, `2056`, `3857` or `4326`
 | `locationOrigins`  | `string`   | `'zipcode,gg25'` | A comma separated list of location origins. Possible origins are: zipcode, gg25, district, kantone, gazetteer,address, parcel.
 | `featureLayers`    | `string`   |                  | A comma separated list of technical layer names to be used by the `feature` search.
-| `filterResults`    | `function` |                  | Filter function applied to the result array. The function accepts three arguments: `element`, `index` and `array` and must return a `boolean`.
-
+| `filterResults`    | `function` |                  | Optional filter function applied to the result array. The function accepts three arguments: `element`, `index` and `array` and must return a `boolean`.
+| `renderResult`     | `function` |                  | Optional function to change the result line. The function accepts two arguments: `result` and `label` and must return a `string`.
 
 ## Events
 
