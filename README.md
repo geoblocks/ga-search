@@ -35,6 +35,7 @@ The component has to have an `input` and `ul` as children element. The query tex
 | `featureLayers`    | `string`   |                  | A comma separated list of technical layer names to be used by the `feature` search.
 | `filterResults`    | `function` |                  | Optional filter function applied to the result array. The function accepts three arguments: `element`, `index` and `array` and must return a `boolean`.
 | `renderResult`     | `function` |                  | Optional function to change the result line. The function accepts two arguments: `result` and `label` and must return a `string`.
+| `additionalSource` | `object`   |                  |
 
 ## Events
 

@@ -19,7 +19,8 @@ class GeoadminSearch extends LitElement {
       locationOrigins: {type: String},
       featureLayers: {type: String},
       filterResults: {type: Function},
-      renderResult: {type: Function}
+      renderResult: {type: Function},
+      additionalSource: {type: Object}
     };
   }
 
@@ -34,6 +35,7 @@ class GeoadminSearch extends LitElement {
     this.locationOrigins = 'zipcode,gg25';
     this.filterResults = undefined;
     this.renderResult = undefined;
+    this.additionalSource = undefined;
   }
 
   slotReady() {
@@ -65,6 +67,17 @@ class GeoadminSearch extends LitElement {
                 .then(response => response.json())
                 .then(featureCollection => featureCollection.features);
             });
+            if (this.additionalSource) {
+              promises.push(this.additionalSource.search(input)
+                .then(results => results.map(result => {
+                  return {
+                    type: 'additionalSource',
+                    result: result
+                  };
+                }))
+              );
+            }
+
             Promise.all(promises)
               .then(results => {
                 results = results.flat();
@@ -81,12 +94,11 @@ class GeoadminSearch extends LitElement {
       },
 
       renderResult: (result, props) => {
-        const properties = result.properties;
-        props['data-result-origin'] = properties.origin;
         // Match input value except if the string is inside an HTML tag.
         const pattern = `${this.autocomplete.input.value}(?![^<>]*>)`;
         const regexp = new RegExp(pattern, 'ig');
-        const label = properties.label.replace(regexp, match => `<span class='highlight'>${match}</span>`);
+
+        const label = this.getLabelFromResult(result).replace(regexp, match => `<span class='highlight'>${match}</span>`);
         return `
           <li ${props}>
             ${this.renderResult ? this.renderResult(result, label) : label}
@@ -95,7 +107,7 @@ class GeoadminSearch extends LitElement {
       },
 
       getResultValue: result => {
-        return result.properties.label.replace(/<i>.*<\/i>/g, '').replace(/<\/?b>/g, '');
+        return this.getLabelFromResult(result).replace(/<i>.*<\/i>/g, '').replace(/<\/?b>/g, '');
       },
 
       onSubmit: result => {
@@ -106,6 +118,14 @@ class GeoadminSearch extends LitElement {
         }));
       }
     });
+  }
+
+  getLabelFromResult(result) {
+    if (result.type === 'additionalSource') {
+      return this.additionalSource.getResultValue(result.result);
+    } else {
+      return result.properties.label;
+    }
   }
 
   render() {

@@ -42,6 +42,11 @@
       <input type="search" class="autocomplete-input" placeholder="Search location and layer">
       <ul class="autocomplete-result-list"></ul>
     </ga-search>
+
+    <ga-search id="custom-sources" types="location">
+      <input type="search" class="autocomplete-input" placeholder="Search location and custom source">
+      <ul class="autocomplete-result-list"></ul>
+    </ga-search>
   </main>
 
   <script>
@@ -50,6 +55,16 @@
 
     const locationLayer = document.querySelector('#location-layer');
     locationLayer.renderResult = (result, label) => `${result.properties.origin === 'layer' ? '👀' : '🦶'} ${label}`;
+
+    const customSources = document.querySelector('#custom-sources');
+    customSources.additionalSource = {
+      search: (input) => Promise.resolve([
+        {display: 'Run away!', origin: 'Holy Grail'},
+        {display: 'Romani ite domum', origin: 'Life of Brian'},
+        {display: 'Ni!', origin: 'Holy Grail'}
+      ]),
+      getResultValue: result => result.display
+    };
 
     const elements = document.querySelectorAll('ga-search');
     elements.forEach(element => {
