@@ -45,14 +45,14 @@ class GeoadminSearch extends LitElement {
           const urls = [];
           if (input.length >= this.minlength) {
             if (this.types.includes('location')) {
-              const locationUrl = locationSearchUrl.replace('{origins}', this.locationOrigins)
+              const locationUrl = locationSearchUrl.replace('{origins}', this.locationOrigins);
               urls.push(locationUrl);
             }
             if (this.types.includes('layer')) {
               urls.push(layerSearchUrl);
             }
             if (this.types.includes('feature') && this.featureLayers) {
-              const featureUrl = featureSearchUrl.replace('{layers}', this.featureLayers)
+              const featureUrl = featureSearchUrl.replace('{layers}', this.featureLayers);
               urls.push(featureUrl);
             }
             const promises = urls.map(url => {
@@ -77,11 +77,11 @@ class GeoadminSearch extends LitElement {
           } else {
             resolve([]);
           }
-        })
+        });
       },
 
       renderResult: (result, props) => {
-        const properties = result.properties
+        const properties = result.properties;
         props['data-result-origin'] = properties.origin;
         // Match input value except if the string is inside an HTML tag.
         const pattern = `${this.autocomplete.input.value}(?![^<>]*>)`;
@@ -95,7 +95,7 @@ class GeoadminSearch extends LitElement {
       },
 
       getResultValue: result => {
-        return result.properties.label.replace(/<i>.*<\/i>/g, '').replace(/<\/?b>/g, '')
+        return result.properties.label.replace(/<i>.*<\/i>/g, '').replace(/<\/?b>/g, '');
       },
 
       onSubmit: result => {
