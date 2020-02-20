@@ -113,7 +113,7 @@ class GeoadminSearch extends LitElement {
       onSubmit: result => {
         this.dispatchEvent(new CustomEvent('submit', {
           detail: {
-            result: result
+            result: result.type === 'additionalSource' ? result.result : result
           }
         }));
       }
