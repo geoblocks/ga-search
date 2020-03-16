@@ -111,11 +111,13 @@ class GeoadminSearch extends LitElement {
       },
 
       onSubmit: result => {
-        this.dispatchEvent(new CustomEvent('submit', {
-          detail: {
-            result: result.type === 'additionalSource' ? result.result : result
-          }
-        }));
+        if (result) {
+          this.dispatchEvent(new CustomEvent('submit', {
+            detail: {
+              result: result.type === 'additionalSource' ? result.result : result
+            }
+          }));
+        }
       }
     });
   }
