@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit-element';
 import Autocomplete from '@trevoreyre/autocomplete-js';
 
-const baseUrl = 'https://mf-chsdi3.int.bgdi.ch/rest/services/api/SearchServer';
+const baseUrl = 'https://api3.geo.admin.ch/rest/services/api/SearchServer';
 const searchUrl = baseUrl + '?geometryFormat=geojson&sr={sr}&lang={lang}&limit={limit}&searchText={input}';
 const locationSearchUrl = searchUrl + '&type=locations&origins={origins}';
 const layerSearchUrl = searchUrl + '&type=layers';
