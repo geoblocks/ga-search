@@ -95,7 +95,7 @@ class GeoadminSearch extends LitElement {
 
       renderResult: (result, props) => {
         // Match input value except if the string is inside an HTML tag.
-        const pattern = `${this.autocomplete.input.value}(?![^<>]*>)`;
+        const pattern = `${escapeRegExp(this.autocomplete.input.value)}(?![^<>]*>)`;
         const regexp = new RegExp(pattern, 'ig');
 
         const label = this.getLabelFromResult(result).replace(regexp, match => `<span class='highlight'>${match}</span>`);
@@ -136,5 +136,10 @@ class GeoadminSearch extends LitElement {
     `;
   }
 };
+
+function escapeRegExp(string) {
+  return string ? string.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&') : string;
+}
+
 
 customElements.define('ga-search', GeoadminSearch);
