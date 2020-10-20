@@ -6,13 +6,13 @@
   "license": "BSD-3-Clause",
   "repository": "github:geoblocks/ga-search",
   "scripts": {
-    "start": "es-dev-server --watch --node-resolve --open /demos/"
+    "start": "web-dev-server --watch --node-resolve --open /demos/"
   },
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.1.0",
     "lit-element": "^2.4.0"
   },
   "devDependencies": {
-    "es-dev-server": "^1.57.5"
+    "@web/dev-server": "0.0.15"
   }
 }
