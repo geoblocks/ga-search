@@ -13,6 +13,6 @@
     "lit-element": "^2.4.0"
   },
   "devDependencies": {
-    "@web/dev-server": "0.0.26"
+    "@web/dev-server": "0.0.29"
   }
 }
