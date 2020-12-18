@@ -8,20 +8,19 @@ const layerSearchUrl = searchUrl + '&type=layers';
 const featureSearchUrl = searchUrl + '&type=featuresearch&features={layers}';
 
 class GeoadminSearch extends LitElement {
-  static get properties() {
-    return {
-      minlength: {type: Number},
-      limit: {type: Number},
-      debounceTime: {type: Number},
-      lang: {type: String},
-      types: {type: String},
-      sr: {type: String},
-      locationOrigins: {type: String},
-      featureLayers: {type: String},
-      filterResults: {type: Function},
-      renderResult: {type: Function},
-      additionalSource: {type: Object}
-    };
+
+  static properties = {
+    minlength: {type: Number},
+    limit: {type: Number},
+    debounceTime: {type: Number},
+    lang: {type: String},
+    types: {type: String},
+    sr: {type: String},
+    locationOrigins: {type: String},
+    featureLayers: {type: String},
+    filterResults: {type: Function},
+    renderResult: {type: Function},
+    additionalSource: {type: Object}
   }
 
   constructor() {
