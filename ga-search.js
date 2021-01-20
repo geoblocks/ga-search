@@ -112,6 +112,8 @@ class GeoadminSearch extends LitElement {
       onSubmit: result => {
         if (result) {
           this.dispatchEvent(new CustomEvent('submit', {
+            bubbles: true,
+            composed: true,
             detail: {
               result: result.type === 'additionalSource' ? result.result : result
             }
