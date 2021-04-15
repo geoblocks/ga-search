@@ -1,6 +1,6 @@
 {
   "name": "@geoblocks/ga-search",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "main": "ga-search.js",
   "module": "ga-search.js",
   "license": "BSD-3-Clause",
@@ -13,6 +13,6 @@
     "lit-element": "^2.4.0"
   },
   "devDependencies": {
-    "@web/dev-server": "0.1.8"
+    "@web/dev-server": "^0.1.11"
   }
 }
