@@ -54,7 +54,14 @@ class GeoadminSearch extends LitElement {
           const urls = [];
           if (input.length < this.minlength && this.historyEnabled) {
             const history = this.storage.getHistory();
-            resolve(history);
+            if (input.length === 0) {
+              resolve(history);
+            } else {
+              const filteredResults = history.filter(item => {
+                return item.properties.label.toLowerCase().indexOf(input.toLowerCase()) > -1;
+              });
+              resolve(filteredResults);
+            }
           }
           if (input.length >= this.minlength) {
             if (this.types.includes('location')) {
