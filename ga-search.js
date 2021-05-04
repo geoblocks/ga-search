@@ -23,7 +23,8 @@ class GeoadminSearch extends LitElement {
       filterResults: {type: Object},
       renderResult: {type: Object},
       additionalSource: {type: Object},
-      storage: {type: Object}
+      storage: {type: Object},
+      historyEnabled: {type: Boolean}
     };
   }
 
@@ -39,6 +40,7 @@ class GeoadminSearch extends LitElement {
     this.filterResults = undefined;
     this.renderResult = undefined;
     this.additionalSource = undefined;
+    this.historyEnabled = true;
     this.storage = new Storage();
     this.storage.setLimit(10);
   }
@@ -50,7 +52,7 @@ class GeoadminSearch extends LitElement {
       search: input => {
         return new Promise(resolve => {
           const urls = [];
-          if (input.length < this.minlength) {
+          if (input.length < this.minlength && this.historyEnabled) {
             const history = this.storage.getHistory();
             resolve(history);
           }
@@ -128,7 +130,11 @@ class GeoadminSearch extends LitElement {
               result: result.type === 'additionalSource' ? result.result : result
             }
           }));
-          this.storage.addEntry(result);
+          if (this.historyEnabled) {
+            // store selected result in history if history is enabled
+            const entry = result.type === 'additionalSource'? result.result : result;
+            this.storage.addEntry(entry);
+          }
         }
       }
     });
