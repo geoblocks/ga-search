@@ -15,9 +15,9 @@ export default class Storage {
         if (duplicatedEntryIdx > -1) {
             history.splice(duplicatedEntryIdx, 1);
         } else if (history.length > this.limit - 1) {
-            history.shift();
+            history.pop();
         }
-        history.push(entry);
+        history.unshift(entry);
         localStorage.setItem(this.storedName, JSON.stringify(history));
     }
 
