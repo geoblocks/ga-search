@@ -1,5 +1,6 @@
 import {LitElement, html} from 'lit-element';
 import Autocomplete from '@trevoreyre/autocomplete-js';
+import Storage from './storage';
 
 const baseUrl = 'https://api3.geo.admin.ch/rest/services/api/SearchServer';
 const searchUrl = baseUrl + '?geometryFormat=geojson&sr={sr}&lang={lang}&limit={limit}&searchText={input}';
@@ -21,7 +22,9 @@ class GeoadminSearch extends LitElement {
       featureLayers: {type: String},
       filterResults: {type: Object},
       renderResult: {type: Object},
-      additionalSource: {type: Object}
+      additionalSource: {type: Object},
+      storage: {type: Object},
+      historyEnabled: {type: Boolean}
     };
   }
 
@@ -37,6 +40,9 @@ class GeoadminSearch extends LitElement {
     this.filterResults = undefined;
     this.renderResult = undefined;
     this.additionalSource = undefined;
+    this.historyEnabled = true;
+    this.storage = new Storage();
+    this.storage.setLimit(10);
   }
 
   slotReady() {
@@ -46,6 +52,17 @@ class GeoadminSearch extends LitElement {
       search: input => {
         return new Promise(resolve => {
           const urls = [];
+          if (input.length < this.minlength && this.historyEnabled) {
+            const history = this.storage.getHistory();
+            if (input.length === 0) {
+              resolve(history);
+            } else {
+              const filteredResults = history.filter(item => {
+                return item.properties.label.toLowerCase().indexOf(input.toLowerCase()) > -1;
+              });
+              resolve(filteredResults);
+            }
+          }
           if (input.length >= this.minlength) {
             if (this.types.includes('location')) {
               const locationUrl = locationSearchUrl.replace('{origins}', this.locationOrigins);
@@ -120,6 +137,11 @@ class GeoadminSearch extends LitElement {
               result: result.type === 'additionalSource' ? result.result : result
             }
           }));
+          if (this.historyEnabled) {
+            // store selected result in history if history is enabled
+            const entry = result.type === 'additionalSource'? result.result : result;
+            this.storage.addEntry(entry);
+          }
         }
       }
     });

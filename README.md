@@ -36,7 +36,8 @@ The component has to have an `input` and `ul` as children element. The query tex
 | `filterResults`    | `function` |                  | Optional filter function applied to the result array. The function accepts three arguments: `element`, `index` and `array` and must return a `boolean`.
 | `renderResult`     | `function` |                  | Optional function to change the result line. The function accepts two arguments: `result` and `label` and must return a `string`.
 | `additionalSource` | `object`   |                  |
-
+| `historyEnabled`   | `boolean`  | `true`           | Enable search history or not. If enabled, show history as result list when the input length is less than `minlength`
+| `storage`          | `object`   | `Storage`        | Define which storage to be use to store search history. Should implement methods `addEntry(entry)` to add a new entry to the history and `getHistory()` to return the history. The default `Storage` support a default limit of 10 entry. This can be changed by setting `storage.setLimit(limit)`.
 ## Events
 
 | Name     | Detail              | Description
