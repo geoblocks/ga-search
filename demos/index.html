@@ -68,7 +68,7 @@
 
     const elements = document.querySelectorAll('ga-search');
     elements.forEach(element => {
-      element.addEventListener('submit', event => {
+      element.addEventListener('itemSelected', event => {
         console.log(event.target, event.detail.result);
       });
     });
