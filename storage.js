@@ -9,8 +9,8 @@ export default class Storage {
     }
 
     addEntry(entry) {
-        const history = localStorage.getItem(this.storedName) ? JSON.parse(localStorage.getItem(this.storedName)) : [];
-        // eleminate duplicated entry
+        const history = this.getHistory();
+        // eliminate duplicated entry
         const duplicatedEntryIdx = history.findIndex(item => item.properties.label === entry.properties.label);
         if (duplicatedEntryIdx > -1) {
             history.splice(duplicatedEntryIdx, 1);
