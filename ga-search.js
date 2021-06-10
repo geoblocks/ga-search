@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit-element';
+import {LitElement, html} from 'lit';
 import Autocomplete from '@trevoreyre/autocomplete-js';
 import Storage from './storage';
 
