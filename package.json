@@ -6,6 +6,7 @@
   "license": "BSD-3-Clause",
   "repository": "github:geoblocks/ga-search",
   "scripts": {
+    "lint": "eslint *.js",
     "start": "web-dev-server --watch --node-resolve --open /demos/"
   },
   "dependencies": {
@@ -13,6 +14,7 @@
     "lit-element": "^2.5.0"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.1.17"
+    "@web/dev-server": "^0.1.17",
+    "eslint": "^7.28.0"
   }
 }

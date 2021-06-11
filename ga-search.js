@@ -139,7 +139,7 @@ class GeoadminSearch extends LitElement {
           }));
           if (this.historyEnabled) {
             // store selected result in history if history is enabled
-            const entry = result.type === 'additionalSource'? result.result : result;
+            const entry = result.type === 'additionalSource' ? result.result : result;
             this.storage.addEntry(entry);
           }
         }
@@ -160,7 +160,7 @@ class GeoadminSearch extends LitElement {
       <slot @slotchange="${this.slotReady}"></slot>
     `;
   }
-};
+}
 
 function escapeRegExp(string) {
   return string ? string.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&') : string;

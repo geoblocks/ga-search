@@ -1,7 +1,7 @@
 export default class Storage {
     constructor() {
         this.limit = 10;
-        this.storedName = "gaSearch.history";
+        this.storedName = 'gaSearch.history';
     }
 
     setLimit(limit) {
@@ -9,8 +9,8 @@ export default class Storage {
     }
 
     addEntry(entry) {
-        const history = localStorage.getItem(this.storedName) ? JSON.parse(localStorage.getItem(this.storedName)) : [];
-        // eleminate duplicated entry
+        const history = this.getHistory();
+        // eliminate duplicated entry
         const duplicatedEntryIdx = history.findIndex(item => item.properties.label === entry.properties.label);
         if (duplicatedEntryIdx > -1) {
             history.splice(duplicatedEntryIdx, 1);
