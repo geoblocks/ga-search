@@ -1,7 +1,7 @@
 export default class Storage {
     constructor() {
         this.limit = 10;
-        this.storedName = "gaSearch.history";
+        this.storedName = 'gaSearch.history';
     }
 
     setLimit(limit) {
