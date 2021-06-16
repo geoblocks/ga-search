@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@trevoreyre/autocomplete-js": "^2.1.0",
-    "lit-element": "^2.5.0"
+    "lit": "^2.0.0-rc.2"
   },
   "devDependencies": {
     "@web/dev-server": "^0.1.17",
