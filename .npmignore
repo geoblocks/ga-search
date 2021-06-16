@@ -1,3 +1,4 @@
 .github/
 demos/
 .editorconfig
+.eslintrc.yml
