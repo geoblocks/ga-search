@@ -125,7 +125,7 @@ class GeoadminSearch extends LitElement {
       },
 
       getResultValue: result => {
-        return this.getLabelFromResult(result).replace(/<i>.*<\/i>/g, '').replace(/<\/?b>/g, '');
+        return this.getLabelFromResult(result);
       },
 
       onSubmit: result => {
@@ -151,7 +151,7 @@ class GeoadminSearch extends LitElement {
     if (result.type === 'additionalSource') {
       return this.additionalSource.getResultValue(result.result);
     } else {
-      return result.properties.label;
+      return removeMarkup(result.properties.label);
     }
   }
 
@@ -166,5 +166,8 @@ function escapeRegExp(string) {
   return string ? string.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&') : string;
 }
 
+function removeMarkup(string) {
+  return string.replace(/<i>.*<\/i>/g, '').replace(/<\/?b>/g, '');
+}
 
 customElements.define('ga-search', GeoadminSearch);
