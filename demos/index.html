@@ -58,6 +58,7 @@
 
     const customSources = document.querySelector('#custom-sources');
     customSources.additionalSource = {
+      first: true,
       search: input => Promise.resolve([
         {display: 'Run away!', origin: 'Holy Grail'},
         {display: 'Romani ite domum', origin: 'Life of Brian'},

@@ -86,14 +86,18 @@ class GeoadminSearch extends LitElement {
                 .then(featureCollection => featureCollection.features);
             });
             if (this.additionalSource) {
-              promises.push(this.additionalSource.search(input)
+              const promise = this.additionalSource.search(input)
                 .then(results => results.map(result => {
                   return {
                     type: 'additionalSource',
                     result: result
                   };
-                }))
-              );
+                }));
+              if (this.additionalSource.first) {
+                promises.unshift(promise);
+              } else {
+                promises.push(promise);
+              }
             }
 
             Promise.all(promises)
