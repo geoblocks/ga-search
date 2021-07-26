@@ -64,17 +64,19 @@ class GeoadminSearch extends LitElement {
             }
           }
           if (input.length >= this.minlength) {
-            if (this.types.includes('location')) {
-              const locationUrl = locationSearchUrl.replace('{origins}', this.locationOrigins);
-              urls.push(locationUrl);
-            }
-            if (this.types.includes('layer')) {
-              urls.push(layerSearchUrl);
-            }
-            if (this.types.includes('feature') && this.featureLayers) {
-              const featureUrl = featureSearchUrl.replace('{layers}', this.featureLayers);
-              urls.push(featureUrl);
-            }
+            this.types.split(',').forEach(type => {
+              if (type === 'location') {
+                const locationUrl = locationSearchUrl.replace('{origins}', this.locationOrigins);
+                urls.push(locationUrl);
+              }
+              if (type === 'layer') {
+                urls.push(layerSearchUrl);
+              }
+              if (type === 'feature' && this.featureLayers) {
+                const featureUrl = featureSearchUrl.replace('{layers}', this.featureLayers);
+                urls.push(featureUrl);
+              }
+            });
             const promises = urls.map(url => {
               url = url
                 .replace('{lang}', this.lang || document.documentElement.lang)
