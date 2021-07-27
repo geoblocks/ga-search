@@ -77,7 +77,7 @@ class GeoadminSearch extends LitElement {
             }
             const promises = urls.map(url => {
               url = url
-                .replace('{lang}', this.lang || document.documentElement.lang)
+                .replace('{lang}', getLang(this.lang || document.documentElement.lang))
                 .replace('{sr}', this.sr)
                 .replace('{limit}', this.limit)
                 .replace('{input}', input);
@@ -164,6 +164,11 @@ class GeoadminSearch extends LitElement {
 
 function escapeRegExp(string) {
   return string ? string.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&') : string;
+}
+
+// extract the language value and discard the country code (eg. 'fr-CH')
+function getLang(string) {
+  return string.split('-')[0];
 }
 
 
