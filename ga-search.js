@@ -130,7 +130,7 @@ class GeoadminSearch extends LitElement {
 
       onSubmit: result => {
         if (result) {
-          this.dispatchEvent(new CustomEvent('submit', {
+          this.dispatchEvent(new CustomEvent('ga-submit', {
             bubbles: true,
             composed: true,
             detail: {
