@@ -4,7 +4,7 @@
     "config:base"
   ],
   "schedule": [
-    "schedule:earlyMondays"
+    "before 7am on Monday"
   ],
   "lockFileMaintenance": {
     "enabled": true
