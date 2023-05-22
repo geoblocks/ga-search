@@ -16,9 +16,9 @@
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "15.0.2",
-    "@rollup/plugin-terser": "0.4.1",
+    "@rollup/plugin-terser": "0.4.3",
     "@web/dev-server": "0.2.1",
-    "eslint": "8.40.0",
-    "rollup": "3.21.7"
+    "eslint": "8.41.0",
+    "rollup": "3.22.1"
   }
 }
