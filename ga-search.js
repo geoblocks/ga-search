@@ -52,6 +52,7 @@ class GeoadminSearch extends LitElement {
       search: input => {
         return new Promise(resolve => {
           const urls = [];
+          const types = this.types.split(',');
           if (input.length < this.minlength && this.historyEnabled) {
             const history = this.storage.getHistory();
             if (input.length === 0) {
@@ -64,7 +65,7 @@ class GeoadminSearch extends LitElement {
             }
           }
           if (input.length >= this.minlength) {
-            this.types.split(',').forEach(type => {
+            types.forEach(type => {
               if (type === 'location') {
                 const locationUrl = locationSearchUrl.replace('{origins}', this.locationOrigins);
                 urls.push(locationUrl);
@@ -88,14 +89,16 @@ class GeoadminSearch extends LitElement {
                 .then(featureCollection => featureCollection.features);
             });
             if (this.additionalSource) {
-              promises.push(this.additionalSource.search(input)
+              const promise = this.additionalSource.search(input)
                 .then(results => results.map(result => {
                   return {
                     type: 'additionalSource',
                     result: result
                   };
-                }))
-              );
+              }));
+              // insert additionalSource at the right place to respect the order of the types
+              const index = types.indexOf('additionalSource');
+              promises.splice(index === -1 ? 0 : index, 0, promise);
             }
 
             Promise.all(promises)
