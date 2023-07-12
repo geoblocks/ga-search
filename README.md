@@ -29,7 +29,7 @@ The component has to have an `input` and `ul` as children element. The query tex
 | `limit`            | `number`   | `15`             | The number of result per type.
 | `debounceTime`     | `number`   | `200`            | Time in milliseconds that the component should wait after last keystroke before calling search function.
 | `lang`             | `string`   |                  | Language code (`de`, `fr`, `it` , `rm`, or `en`). Default is the value of the `lang` attribute of the HTML document.
-| `types`            | `string`   | `'location'`     | A comma separated list of types of search to use. Can be a combination of `'location'`, `'layer'` and `'feature'`. The order of this list is used as the display order.
+| `types`            | `string`   | `'location'`     | A comma separated list of types of search to use. Can be a combination of `'location'`, `'layer'`, `'feature'` and `'additionalSource'`. The order of this list is used as the display order.
 | `sr`               | `string`   | `'4326'`         | The spatial reference code for output geometries. Can be `21781`, `2056`, `3857` or `4326`
 | `locationOrigins`  | `string`   | `'zipcode,gg25'` | A comma separated list of location origins. Possible origins are: `zipcode`, `gg25`, `district`, `kantone`, `gazetteer`, `address` and `parcel`.
 | `featureLayers`    | `string`   |                  | A comma separated list of technical layer names to be used by the `feature` search.
