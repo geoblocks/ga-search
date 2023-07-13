@@ -144,8 +144,8 @@ class GeoadminSearch extends LitElement {
           }));
           if (this.historyEnabled) {
             // store selected result in history if history is enabled
-            const entry = result.type === 'additionalSource' ? result.result : result;
-            this.storage.addEntry(entry);
+            result._key = this.getLabelFromResult(result);
+            this.storage.addEntry(result);
           }
         }
       }

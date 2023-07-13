@@ -11,7 +11,7 @@ export default class Storage {
     addEntry(entry) {
         const history = this.getHistory();
         // eliminate duplicated entry
-        const duplicatedEntryIdx = history.findIndex(item => item.properties.label === entry.properties.label);
+        const duplicatedEntryIdx = history.findIndex(item => item._key === entry._key);
         if (duplicatedEntryIdx > -1) {
             history.splice(duplicatedEntryIdx, 1);
         } else if (history.length > this.limit - 1) {
