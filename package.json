@@ -19,6 +19,6 @@
     "@rollup/plugin-terser": "0.4.4",
     "@web/dev-server": "0.4.6",
     "eslint": "8.57.0",
-    "rollup": "4.19.0"
+    "rollup": "4.19.2"
   }
 }
