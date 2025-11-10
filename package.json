@@ -15,10 +15,10 @@
     "lit": "3.3.1"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-node-resolve": "16.0.3",
     "@rollup/plugin-terser": "0.4.4",
     "@web/dev-server": "0.4.6",
     "eslint": "8.57.1",
-    "rollup": "4.52.1"
+    "rollup": "4.53.2"
   }
 }
